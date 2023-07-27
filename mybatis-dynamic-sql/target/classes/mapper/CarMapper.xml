@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.CarMapper">
+    <select id="selectByMultiCondition" resultType="Car">
+        select * from t_car where 1=1
+        <if test="brand != null and brand != '' ">
+            and brand like "%"#{brand}"%"
+        </if>
+        <if test="guidePrice != null and guidePrice != ''">
+            and guide_price > #{guidePrice}
+        </if>
+        <if test="carType !+null and carType != ''">
+            and car_type = #{carType}
+        </if>
+    </select>
+
+    <select id="selectByMultiConditionWithWhere" resultType="Car">
+        select * from t_car
+        <where>
+            <if test="brand != null and brand != '' ">
+                 and brand like "%"#{brand}"%"
+            </if>
+            <if test="guidePrice != null and guidePrice != ''">
+                 and guide_price > #{guidePrice}
+            </if>
+            <if test="carType !+null and carType != ''">
+                 and  car_type = #{carType}
+            </if>
+        </where>
+    </select>
+    <select id="selectByMultiConditionWithTrim" resultType="Car">
+        select * from t_car
+        <!--
+         prefix:加前缀
+         suffix加后缀
+         prefixOverrides:去除前缀
+         suffixOverrides去除后缀
+         -->
+        <trim prefix="where"  suffixOverrides="and|or">
+            <if test="brand != null and brand != '' ">
+                brand like "%"#{brand}"%" and
+            </if>
+            <if test="guidePrice != null and guidePrice != ''">
+                guide_price > #{guidePrice} and
+            </if>
+            <if test="carType !=null and carType != ''">
+                car_type = #{carType}
+            </if>
+        </trim>
+    </select>
+    <update id="updateWithSetById">
+        update t_car
+        <set>
+            <if test="carNum != null and carNum != '' ">car_num = #{carNum},</if>
+            <if test="brand != null and brand != '' ">brand = #{brand},</if>
+            <if test="guidePrice != null and guidePrice != '' ">guide_price = #{guidePrice},</if>
+            <if test="produceTime != null and produceTime != '' ">produce_time = #{produceTime},</if>
+            <if test="carType != null and carType != '' ">car_type = #{carType},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectWithChoose" resultType="car">
+        select * from t_car
+        <where>
+            <choose>
+                <when test="brand != null and brand != ''">
+                    brand like #{brand}"%"
+                </when>
+                <when test="guidePrice != null and guidePrice != ''">
+                    guide_price >= #{guidePrice}
+                </when>
+                <otherwise>
+                    produce_time >= #{produceTime}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+    <!--
+    foreach标签的属性:
+            collection:指定数组或者集合
+            item:代表数组或者集合中的元素
+            separator:循环体之间的分隔符
+            open:foreach循环拼接的所有SQL语句的最前面以什么开始
+            close:foreach循环拼接的所有SQL语句的最前面以什么结束
+    <delete id="deleteByIds">
+        delete from t_car where id in(
+        <foreach collection="ids" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>-->
+    <delete id="deleteByIds">
+        delete from t_car where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteByIds2">
+        delete from t_car where
+        <foreach collection="ids" item="id" separator="or">
+            id = #{id}
+        </foreach>
+    </delete>
+    <insert id="insertBatch">
+        insert into t_car values
+        <foreach collection="cars" item="car" separator=",">
+            (null,#{car.carNum},#{car.brand},#{car.guidePrice},#{car.produceTime},#{car.carType})
+        </foreach>
+    </insert>
+</mapper>
