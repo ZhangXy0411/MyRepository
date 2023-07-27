@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/mybatis-01" />
+    <file type="web" url="file://$PROJECT_DIR$/mybatis-bank" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/mybatis-01/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis-crud/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis-bank/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis-mapper/pom.xml" />
+        <option value="$PROJECT_DIR$/myabtis-select/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis-select/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis-dynamic-sql/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis-advanced-mapping/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis-generator/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis-page/pom.xml" />
+        <option value="$PROJECT_DIR$/mybatis-annotation/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_19" project-jdk-name="openjdk-19" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
